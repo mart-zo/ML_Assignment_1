@@ -34,19 +34,19 @@ for i in range(len(T)):
     ax.text(x[i], y[i], z[i], f'  t{T[i]}', fontsize=10)
 
 
-# Labels and title
+#Labels and title
 ax.set_xlabel('X', fontsize=12)
 ax.set_ylabel('Y', fontsize=12)
 ax.set_zlabel('Z', fontsize=12)
 ax.set_title('Drone Trajectory', fontsize=14, fontweight='bold')
 
-# Add legend
+
 ax.legend()
 
-# Add grid
+
 ax.grid(True)
 
-# Show plot
+
 plt.tight_layout()
 plt.show()
 
