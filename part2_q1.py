@@ -48,5 +48,5 @@ ax.grid(True)
 
 
 plt.tight_layout()
+plt.savefig('drone_trajectory.png')
 plt.show()
-
