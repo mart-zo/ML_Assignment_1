@@ -1,5 +1,10 @@
 import numpy as np
 
+# Data from the assignment
+T = np.array([1, 2, 3, 4, 5, 6])
+# Example for the X-dimension only [cite: 11]
+P_x = np.array([2, 1.08, -0.83, -1.97, -1.31, 0.57])
+
 def gradient_descent(start, function, gradient, learn_rate, max_iter, tol=0.001):
     """
     Performs gradient descent to minimize a given function.
