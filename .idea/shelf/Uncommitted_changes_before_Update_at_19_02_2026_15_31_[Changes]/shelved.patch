@@ -1,0 +1,13 @@
+Index: mycodearda.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>print(\"hi\")
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/mycodearda.py b/mycodearda.py
+--- a/mycodearda.py	(revision 195dc5073b8b4134046ff3d70d1431adf42b4d80)
++++ b/mycodearda.py	(date 1771511514737)
+@@ -1,1 +1,0 @@
+-print("hi")
+\ No newline at end of file
