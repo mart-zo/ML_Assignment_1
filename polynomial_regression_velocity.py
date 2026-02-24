@@ -13,9 +13,9 @@ One = np.array([1,1,1,1,1,1])
 #create D matrix (with x as time)
 D = np.column_stack((One,T))
 
-y_x = P[:, 0] #all rows and  1st column
-y_y = P[:, 1] #all rows and  2nd column
-y_z = P[:, 2] #all rows and  3rd column
+y_x = P[:, 0] #all rows and  1st column (the 6 measured x-positions)
+y_y = P[:, 1] #all rows and  2nd column (y positions)
+y_z = P[:, 2] #all rows and  3rd column (z positions)
 
 #looking for alpha - formula from slide 14 (lecture on linear regression)
 alpha_x = np.linalg.inv(D.T @ D) @ D.T @ y_x
