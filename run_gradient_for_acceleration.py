@@ -50,43 +50,48 @@ T_norm = (T - T.mean()) / T.std()  # scale T to have mean=0, std=1
 
 #task 2.2b - now we have p(t) = a0 +a1t + a2t^2
 def sse_x_a(alpha):
-    a0, a1, a2 = alpha[0], alpha[1], alpha[2]
-    predicted = a0 + a1 *T_norm  + a2 * T_norm**2
-    return np.sum((y_x - predicted)**2)
+   a0, a1, a2 = alpha[0], alpha[1], alpha[2]
+   predicted = a0 + a1 *T_norm  + a2 * T_norm**2
+   return np.sum((y_x - predicted)**2)
+
 
 def sse_y_a(alpha):
-    a0, a1, a2 = alpha[0], alpha[1], alpha[2]
-    predicted = a0 + a1 * T_norm + a2 * T_norm**2
-    return np.sum((y_y - predicted)**2)
+   a0, a1, a2 = alpha[0], alpha[1], alpha[2]
+   predicted = a0 + a1 * T_norm + a2 * T_norm**2
+   return np.sum((y_y - predicted)**2)
+
 
 def sse_z_a(alpha):
-    a0, a1, a2 = alpha[0], alpha[1], alpha[2]
-    predicted = a0 + a1 * T_norm + a2 * T_norm**2
-    return np.sum((y_z - predicted)**2)
+   a0, a1, a2 = alpha[0], alpha[1], alpha[2]
+   predicted = a0 + a1 * T_norm + a2 * T_norm**2
+   return np.sum((y_z - predicted)**2)
+
 
 def grad_x_a(alpha):
-    a0, a1, a2 = alpha[0], alpha[1], alpha[2]
-    predicted = a0 + a1 * T_norm + a2 * T_norm**2
-    da0 = -2 * np.sum(y_x - predicted)
-    da1 = -2 * np.sum(T_norm * (y_x - predicted))
-    da2 = -2 * np.sum(T_norm**2 * (y_x - predicted))
-    return np.array([da0, da1, da2])
+   a0, a1, a2 = alpha[0], alpha[1], alpha[2]
+   predicted = a0 + a1 * T_norm + a2 * T_norm**2
+   da0 = -2 * np.sum(y_x - predicted)
+   da1 = -2 * np.sum(T_norm * (y_x - predicted))
+   da2 = -2 * np.sum(T_norm**2 * (y_x - predicted))
+   return np.array([da0, da1, da2])
+
 
 def grad_y_a(alpha):
-    a0, a1, a2 = alpha[0], alpha[1], alpha[2]
-    predicted = a0 + a1 * T_norm + a2 * T_norm**2
-    da0 = -2 * np.sum(y_y - predicted)
-    da1 = -2 * np.sum(T_norm * (y_y - predicted))
-    da2 = -2 * np.sum(T_norm**2 * (y_y - predicted))
-    return np.array([da0, da1, da2])
+   a0, a1, a2 = alpha[0], alpha[1], alpha[2]
+   predicted = a0 + a1 * T_norm + a2 * T_norm**2
+   da0 = -2 * np.sum(y_y - predicted)
+   da1 = -2 * np.sum(T_norm * (y_y - predicted))
+   da2 = -2 * np.sum(T_norm**2 * (y_y - predicted))
+   return np.array([da0, da1, da2])
+
 
 def grad_z_a(alpha):
-    a0, a1, a2 = alpha[0], alpha[1], alpha[2]
-    predicted = a0 + a1 * T_norm + a2 * T_norm**2
-    da0 = -2 * np.sum(y_z - predicted)
-    da1 = -2 * np.sum(T_norm * (y_z - predicted))
-    da2 = -2 * np.sum(T_norm**2 * (y_z - predicted))
-    return np.array([da0, da1, da2])
+   a0, a1, a2 = alpha[0], alpha[1], alpha[2]
+   predicted = a0 + a1 * T_norm + a2 * T_norm**2
+   da0 = -2 * np.sum(y_z - predicted)
+   da1 = -2 * np.sum(T_norm * (y_z - predicted))
+   da2 = -2 * np.sum(T_norm**2 * (y_z - predicted))
+   return np.array([da0, da1, da2])
 
 
 # Run the gradient descent algorithm starting from x = 0 - for acceleration
@@ -97,14 +102,40 @@ alpha_y_a = gradient_descent(np.zeros(3), sse_y_a, grad_y_a, learn_rate=0.001, m
 
 alpha_z_a = gradient_descent(np.zeros(3), sse_z_a, grad_z_a, learn_rate=0.001, max_iter=1000000)
 
+T_mean = T.mean()
+T_std = T.std()
+
+#since i normalized T at the beginning for gradient descent we transform back for converting normalized coefficients
+def back_transform(alpha):
+    a0, a1, a2 = alpha
+    m, s = T_mean, T_std
+    p0 = a0 - a1*(m/s) + a2*(m**2/s**2)
+    v  = a1/s - 2*a2*(m/s**2)
+    a  = a2 / s**2
+    return p0, v, a
+
+alpha_x_a = back_transform(alpha_x_a)
+alpha_y_a = back_transform(alpha_y_a)
+alpha_z_a = back_transform(alpha_z_a)
+
+
 #results for task 2.2 (b)
 print(f"x: start={alpha_x_a[0]},  velocity={alpha_x_a[1]},  acceleration={alpha_x_a[2]}")
 print(f"y: start={alpha_y_a[0]},  velocity={alpha_y_a[1]},  acceleration={alpha_y_a[2]}")
 print(f"z: start={alpha_z_a[0]},  velocity={alpha_z_a[1]},  acceleration={alpha_z_a[2]}")
-print(f"\nVelocity vector: [{alpha_x_a[1]}, {alpha_y_a[1]}, {alpha_z_a[1]}]")
-print(f"Acceleration vector: [{alpha_x_a[2]}, {alpha_y_a[2]}, {alpha_z_a[2]}]")
 
-print(f"SSE x: {sse_x_a(alpha_x_a)}")
-print(f"SSE y: {sse_y_a(alpha_y_a)}")
-print(f"SSE z: {sse_z_a(alpha_z_a)}")
-print(f"SSE total: {sse_x_a(alpha_x_a) + sse_y_a(alpha_y_a) + sse_z_a(alpha_z_a)}")
+
+
+# print(f"SSE x: {sse_x_a(alpha_x_a)}")
+# print(f"SSE y: {sse_y_a(alpha_y_a)}")
+# print(f"SSE z: {sse_z_a(alpha_z_a)}")
+# print(f"SSE total: {sse_x_a(alpha_x_a) + sse_y_a(alpha_y_a) + sse_z_a(alpha_z_a)}")
+
+def sse_original(y, p0, v, a):
+    predicted = p0 + v * T + a * T**2
+    return np.sum((y - predicted)**2)
+
+print(f"SSE x: {sse_original(y_x, alpha_x_a[0], alpha_x_a[1], alpha_x_a[2])}")
+print(f"SSE y: {sse_original(y_y, alpha_y_a[0], alpha_y_a[1], alpha_y_a[2])}")
+print(f"SSE z: {sse_original(y_z, alpha_z_a[0], alpha_z_a[1], alpha_z_a[2])}")
+print(f"SSE total: {sse_original(y_x, *alpha_x_a) + sse_original(y_y, *alpha_y_a) + sse_original(y_z, *alpha_z_a)}")
