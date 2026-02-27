@@ -42,11 +42,11 @@ p_y = np.array([0.00,  1.68,  1.82,  0.28, -1.51, -1.91])
 p_z = np.array([1.00,  2.38,  2.49,  2.15,  2.59,  4.32])
 
 # To find v_x, v_y, v_z
-p0_x, v_x = gradient_descent(timesteps, p_x, 0.001, 10000)
+p0_x, v_x = gradient_descent(timesteps, p_x, 0.0001, 10000)
 print(f"For Axis X: p0={p0_x}, v={v_x}")
-p0_y, v_y = gradient_descent(timesteps, p_y, 0.001, 10000)
+p0_y, v_y = gradient_descent(timesteps, p_y, 0.0001, 10000)
 print(f"For Axis Y: p0={p0_y}, v={v_y}")
-p0_z, v_z = gradient_descent(timesteps, p_z, 0.001, 10000)
+p0_z, v_z = gradient_descent(timesteps, p_z, 0.0001, 10000)
 print(f"For Axis Z: p0={p0_z}, v={v_z}")
 
 
@@ -98,7 +98,7 @@ def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z):
     ax.legend()
     ax.grid(True)
     plt.tight_layout()
-    plt.savefig('drone_trajectory_estimation.png')
+    plt.savefig('drone_trajectory_estimation_acceleration.png')
 
 # now using our results to plot the estimated v and p0
 draw(p0_x, p0_y, p0_z, v_x, v_y, v_z)
