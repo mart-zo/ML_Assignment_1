@@ -22,6 +22,9 @@ z = P[:, 2]
 #3D plot
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection='3d')
+ax.set_xlim(-5, 5)
+ax.set_ylim(-5, 5)
+ax.set_zlim(0.5, 5)
 
 #the trajectory (line connecting the position points)
 ax.plot(x, y, z, 'b-', linewidth=2, label='Trajectory')
