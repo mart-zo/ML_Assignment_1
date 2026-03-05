@@ -2,12 +2,9 @@
 
 **Group 6:**
 
-Emil Houb - (6550940)
-
-Arda Baysal  (ID)
-
-Moritz Cermann ()
-
+Arda Baysal  (5484987)
+Emil Houb   (6550940)
+Moritz Cermann (6562906)
 Marta Żołnowska (6583725)
 - - - 
 
