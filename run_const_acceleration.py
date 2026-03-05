@@ -116,6 +116,7 @@ def predict_new_pos_and_draw(t_pred, p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, 
         ax.grid(True)
         plt.tight_layout()
         plt.savefig('drone_trajectory_predict_t7.png')
+        plt.show()
 
         print(x_7, y_7, z_7)
 
