@@ -33,7 +33,7 @@ def gradient_descent(timesteps, positions, learn_rate, max_iter, tol=1e-6):
     return p0, v
 
 
-def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z):
+def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z, p_x, p_y, p_z):
     # Create a range of time for the smooth line (from start p0 at t=0 to t=6)
     t_line = np.linspace(0, 6, 100)
 
@@ -103,7 +103,7 @@ def main():
     print(residual_error)
 
     # now using our results to plot the estimated v and p0
-    draw(p0_x, p0_y, p0_z, v_x, v_y, v_z)
+    draw(p0_x, p0_y, p0_z, v_x, v_y, v_z, p_x, p_y, p_z)
 
 
 if __name__ == "__main__":

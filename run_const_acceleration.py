@@ -37,7 +37,7 @@ def calc_residual_error(timesteps, p_i, p0, v, a):
     return error
 
 
-def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z):
+def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z, p_x, p_y, p_z):
     t_line = np.linspace(0, 6, 100)
 
     # Calculate the predicted coordinates for the line
@@ -73,7 +73,7 @@ def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z):
     plt.savefig('drone_trajectory_estimation_acceleration.png')
 
 
-def predict_new_pos_and_draw(t_pred, p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z):
+def predict_new_pos_and_draw(t_pred, p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z, p_x, p_y, p_z):
 
         t_line = np.linspace(0, t_pred, 100)
 
@@ -143,9 +143,9 @@ def main():
                calc_residual_error(timesteps, p_z, p0_z, v_z, a_z))
 
     # now using our results to plot the estimated v and p0
-    draw(p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z)
+    draw(p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z, p_x, p_y, p_z)
 
-    predict_new_pos_and_draw(7, p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z)
+    predict_new_pos_and_draw(7, p0_x, p0_y, p0_z, v_x, v_y, v_z, a_x, a_y, a_z, p_x, p_y, p_z)
 
     # now sum up all the 6 residual errors
     residual_error = np.sum(error_xyz)
