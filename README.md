@@ -14,5 +14,5 @@ To run the code simply download the repository and run:
 python 'main.py'
 ```
 
-The respective learning rate and convergence threshold can be changed in the scripts run_const_acceleration.py and run_const_velocity.py for question 2a) and 2b).
+The respective learning rate and convergence tolerance can be changed in the scripts run_const_acceleration.py and run_const_velocity.py for question 2a) and 2b).
 
