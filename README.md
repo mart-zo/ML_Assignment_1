@@ -11,7 +11,7 @@ Marta Żołnowska (6583725)
 **Running instructions:**
 To run the code simply download the repository and run: 
 ```bash
-python main.py
+python 'main.py'
 ```
 
 The respective learning rate and convergence threshold can be changed in the scripts run_const_acceleration.py and run_const_velocity.py for question 2a) and 2b).
