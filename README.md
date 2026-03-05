@@ -9,4 +9,6 @@ Marta Żołnowska (6583725)
 - - - 
 
 **Running instructions:**
-
+To run the code simply download the repository and run: 
+```bash
+python main.py
