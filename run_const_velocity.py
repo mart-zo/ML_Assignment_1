@@ -33,37 +33,6 @@ def gradient_descent(timesteps, positions, learn_rate, max_iter, tol=1e-6):
     return p0, v
 
 
-# Timesteps
-timesteps = np.array([1, 2, 3, 4, 5, 6])
-
-# 3D points
-p_x = np.array([2.00,  1.08, -0.83, -1.97, -1.31,  0.57])
-p_y = np.array([0.00,  1.68,  1.82,  0.28, -1.51, -1.91])
-p_z = np.array([1.00,  2.38,  2.49,  2.15,  2.59,  4.32])
-
-# To find v_x, v_y, v_z
-p0_x, v_x = gradient_descent(timesteps, p_x, 0.0001, 10000)
-print(f"For Axis X: p0={p0_x}, v={v_x}")
-p0_y, v_y = gradient_descent(timesteps, p_y, 0.0001, 10000)
-print(f"For Axis Y: p0={p0_y}, v={v_y}")
-p0_z, v_z = gradient_descent(timesteps, p_z, 0.0001, 10000)
-print(f"For Axis Z: p0={p0_z}, v={v_z}")
-
-
-def calc_residual_error(timesteps, p_i, p0, v):
-    # calculate the error for all 6 timesteps (np.array)
-    error = (p_i - (p0 + v * timesteps))**2
-    return error
-
-error_xyz = (calc_residual_error(timesteps, p_x, p0_x, v_x) +
-               calc_residual_error(timesteps, p_y, p0_y, v_y) +
-               calc_residual_error(timesteps, p_z, p0_z, v_z))
-
-# now sum up all the 6 residual errors
-residual_error = np.sum(error_xyz)
-print(residual_error)
-
-
 def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z):
     # Create a range of time for the smooth line (from start p0 at t=0 to t=6)
     t_line = np.linspace(0, 6, 100)
@@ -100,5 +69,42 @@ def draw(p0_x, p0_y, p0_z, v_x, v_y, v_z):
     plt.tight_layout()
     plt.savefig('drone_trajectory_estimation_acceleration.png')
 
-# now using our results to plot the estimated v and p0
-draw(p0_x, p0_y, p0_z, v_x, v_y, v_z)
+
+def calc_residual_error(timesteps, p_i, p0, v):
+    # calculate the error for all 6 timesteps (np.array)
+    error = (p_i - (p0 + v * timesteps)) ** 2
+    return error
+
+
+
+def main():
+    # Timesteps
+    timesteps = np.array([1, 2, 3, 4, 5, 6])
+
+    # 3D points
+    p_x = np.array([2.00, 1.08, -0.83, -1.97, -1.31, 0.57])
+    p_y = np.array([0.00, 1.68, 1.82, 0.28, -1.51, -1.91])
+    p_z = np.array([1.00, 2.38, 2.49, 2.15, 2.59, 4.32])
+
+    # To find v_x, v_y, v_z
+    p0_x, v_x = gradient_descent(timesteps, p_x, 0.0001, 10000)
+    print(f"For Axis X: p0={p0_x}, v={v_x}")
+    p0_y, v_y = gradient_descent(timesteps, p_y, 0.0001, 10000)
+    print(f"For Axis Y: p0={p0_y}, v={v_y}")
+    p0_z, v_z = gradient_descent(timesteps, p_z, 0.0001, 10000)
+    print(f"For Axis Z: p0={p0_z}, v={v_z}")
+
+    error_xyz = (calc_residual_error(timesteps, p_x, p0_x, v_x) +
+                 calc_residual_error(timesteps, p_y, p0_y, v_y) +
+                 calc_residual_error(timesteps, p_z, p0_z, v_z))
+
+    # now sum up all the 6 residual errors
+    residual_error = np.sum(error_xyz)
+    print(residual_error)
+
+    # now using our results to plot the estimated v and p0
+    draw(p0_x, p0_y, p0_z, v_x, v_y, v_z)
+
+
+if __name__ == "__main__":
+    main()
