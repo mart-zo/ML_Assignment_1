@@ -28,3 +28,15 @@ ax.set_zlabel("z")
 ax.set_title("Tracked 3D trajectory (1 Hz)")
 
 plt.show()
+
+# Gradient Descent
+# Constant velocity:
+# x(t) = bx + vx * t;
+# y(t) = by + vy * t;
+# z(t) = bz + vz * t;
+
+
+# Constant acceleration:
+# x(t) =
+
+
